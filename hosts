@@ -1,2 +1,2 @@
 [docker_servers]
-docker1  ansible_host=35.184.161.17  ansible_user=artemkulish123  ansible_ssh_private_key_file=$PRIVATE 
+docker1  ansible_host=35.226.70.206  ansible_user=artemkulish123  ansible_ssh_private_key_file=$PRIVATE 
