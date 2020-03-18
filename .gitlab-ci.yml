@@ -14,5 +14,4 @@ build:
     - ansible --version
     #- pip install boto boto3 netaddr passlib
     - ansible -m ping all -i hosts
-    - sleep 20
-    - ansible-playbook ping.yml
+    - sudo ansible-playbook ping.yml
