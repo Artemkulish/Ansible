@@ -14,4 +14,4 @@ build:
     - ansible --version
     #- pip install boto boto3 netaddr passlib
     - ansible -m ping all -i hosts
-    - sudo ansible-playbook docker_install.yml
+    - sudo ansible-playbook docker_install.yml --hostname artemkulish123@35.226.70.206
