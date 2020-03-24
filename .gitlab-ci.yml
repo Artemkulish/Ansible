@@ -9,7 +9,7 @@ before_script:
     
 build:
   script:
-    - sudo mv ansible.cfg /builds/root/Ansible/ansible.cfg
+    - sudo mv ansible.cfg /builds/root/Ansible
     #- apt update
     #- apt install -y python-pip
     #- pip install apache-libcloud
