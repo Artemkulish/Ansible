@@ -1,9 +1,8 @@
 ---
 
-service_account_email: create-instance@winged-polygon-271409.iam.gserviceaccount.com
-credentials_file: /etc/ansible/winged-polygon-271409-80e051978e12.json
-project_id: winged-polygon-271409
-machine_type: n1-standard-1
+service_account_email: demo-2@first-one-257817.iam.gserviceaccount.com
+credentials_file: $GCP_KEY
+project_id: first-one-257817
+machine_type: f1-micro
 image: debian-9
-zone: us-central1-a
-
+zone: europe-north1
