@@ -1,4 +1,4 @@
-image: williamyeh/ansible:debian9
+image: gitlab.svagworks.me:5050/root/ansible
 
 before_script:
     - 'which ssh-agent || ( apt update -y && apt install openssh-client -y)'
@@ -18,4 +18,4 @@ build:
     #- python get-pip.py
     #- pip install boto boto3 netaddr passlib
     - ansible -m ping all -i hosts
-    - sudo ansible-playbook -i hosts docker_install.yml
+    - sudo ansible-playbook -i hosts postgresql.yml
