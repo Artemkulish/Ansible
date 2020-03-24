@@ -21,4 +21,3 @@ build:
     - pwd
     #- sudo ansible -m ping all -i hosts
     - sudo ansible-playbook -i hosts postgresql.yml
-
