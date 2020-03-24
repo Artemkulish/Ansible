@@ -9,8 +9,8 @@ before_script:
     
 build:
   script:
-    - sudo cp ansible.cfg /usr/local/lib/python2.7/dist-packages/ansible/galaxy/data/container/tests/ansible.cfg
-    - sudo cp ansible.cfg /usr/local/lib/python2.7/dist-packages/ansible/galaxy/data/apb/tests/ansible.cfg
+    - sudo mv ansible.cfg /usr/local/lib/python2.7/dist-packages/ansible/galaxy/data/container/tests/ansible.cfg
+    #- sudo cp ansible.cfg /usr/local/lib/python2.7/dist-packages/ansible/galaxy/data/apb/tests/ansible.cfg
     #- apt update
     #- apt install -y python-pip
     #- pip install apache-libcloud
