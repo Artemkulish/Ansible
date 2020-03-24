@@ -19,5 +19,5 @@ build:
     #- ansible-playbook create_vms.yml
     - ls
     - pwd
-    #- sudo ansible -m ping all -i hosts
-    - sudo ansible-playbook -i hosts postgresql.yml
+    - sudo ansible -m ping all -i hosts
+    #- sudo ansible-playbook -i hosts postgresql.yml
