@@ -1,4 +1,4 @@
-image: gitlab.svagworks.me:5050/root/ansible
+#image: gitlab.svagworks.me:5050/root/ansible
 
 before_script:
     - 'which ssh-agent || ( apt update -y && apt install openssh-client -y)'
