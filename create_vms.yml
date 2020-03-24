@@ -1,0 +1,45 @@
+---
+- name: Create VM
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  
+  vars_files:
+  - var
+
+  tasks:
+   - name: Launch instances
+     gce:
+      instance_names: app-instance-1,app-instance-2       
+      machine_type: "{{ machine_type }}"
+      image: "{{ image }}"
+      service_account_email: "{{ service_account_email }}"
+      credentials_file: "{{ credentials_file }}"
+      project_id: "{{ project_id }}"
+      zone: "{{ zone }}"
+      tags: webserver
+     register: gce
+   - debug:
+        var: gce
+   - name: Save hosts data
+     add_host:
+      hostname: "{{ item.public_ip }}"
+      groupname: gce_instaces_java
+     with_items: "{{ gce.instance_data }}"
+   - debug:
+       var: hostname
+   - name: Wait for SSH for instances
+     wait_for:
+      delay: 1
+      host: "{{ item.public_ip }}"
+      port: 22
+      state: started
+      timeout: 30
+     with_items: "{{ gce.instance_data }}"
+
+- name: Configure Hosts
+  hosts: gce_instaces_java
+  become: yes
+  become_method: sudo
+  roles:
+  - installs
