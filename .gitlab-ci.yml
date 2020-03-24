@@ -1,15 +1,16 @@
 image: gitlab.svagworks.me:5050/root/ansible
 
-before_script:
-    - 'which ssh-agent || ( apt update -y && apt install openssh-client -y)'
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#before_script:
+#    - 'which ssh-agent || ( apt update -y && apt install openssh-client -y)'
+#    - eval $(ssh-agent -s)
+#    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+#    - mkdir -p ~/.ssh
+#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     
 build:
   script:
     - ls
+    - cat /etc/ansible/ansible.cfg
     #- apt update
     #- apt install -y python-pip
     #- pip install apache-libcloud
@@ -17,5 +18,5 @@ build:
     #- ansible-playbook create_vms.yml
 
     
-    - ansible -m ping all -i hosts
-    - sudo ansible-playbook -i hosts postgresql.yml
+    #- ansible -m ping all -i hosts
+    #- sudo ansible-playbook -i hosts postgresql.yml
