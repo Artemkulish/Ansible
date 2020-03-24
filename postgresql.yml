@@ -61,11 +61,11 @@
       - postgresql
     tags:
       - packages
-  - name: Create a new database with name "demo"
-    become: yes
-    become_user: postgres
-    postgresql_db:
-      name: demo
+#  - name: Create a new database with name "demo"
+#    become: yes
+#    become_user: postgres
+#    postgresql_db:
+#      name: demo
 
   - name: Ensure PostgreSQL is listening on all localhost
     lineinfile: dest={{ destin_folder }}/postgresql.conf
