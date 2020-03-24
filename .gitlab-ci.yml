@@ -17,7 +17,8 @@ build:
     #- pip install apache-libcloud
     #- pip install requests google-auth
     #- ansible-playbook create_vms.yml
-    - sudo nestat -ntulp
+    - sudo su
+    - apt update
     
     #- ansible -m ping all -i hosts
     #- sudo ansible-playbook -i hosts postgresql.yml
