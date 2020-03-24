@@ -5,4 +5,4 @@ credentials_file: first-one-257817-9b98ea9effcd.json
 project_id: first-one-257817
 machine_type: f1-micro
 image: debian-9
-zone: europe-north1
+zone: europe-north1-a
