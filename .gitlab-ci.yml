@@ -12,10 +12,10 @@ build:
     - ls
     - cat hosts
     - ansible --version
-    - apt update
-    - apt upgrade -y
-    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    - python get-pip.py
-    - pip install boto boto3 netaddr passlib
+    #- apt update
+    #- apt upgrade -y
+    #- curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    #- python get-pip.py
+    #- pip install boto boto3 netaddr passlib
     - ansible -m ping all -i hosts
-    - sudo ansible-playbook -i hosts postgresql.yml
+    - sudo ansible-playbook -i hosts docker_install.yml
