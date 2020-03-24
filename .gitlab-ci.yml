@@ -13,7 +13,7 @@ build:
     - cat hosts
     - ansible --version
     - apt update
-    - apt upgrade
+    - apt upgrade -y
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - python get-pip.py
     - pip install boto boto3 netaddr passlib
