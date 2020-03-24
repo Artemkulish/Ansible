@@ -1,7 +1,7 @@
 ---
 
-service_account_email: demo-2@first-one-257817.iam.gserviceaccount.com
-credentials_file: 
+service_account_email: new-755@first-one-257817.iam.gserviceaccount.com
+credentials_file: /home/first-one-257817-221e08c80908.json
 project_id: first-one-257817
 machine_type: f1-micro
 image: debian-9
