@@ -1,0 +1,84 @@
+---
+- name: install postgresql on Ubuntu or Debian
+  hosts: all
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    destin_folder: /etc/postgresql/12/main
+
+  tasks:
+  - name: Update the apt package index
+    become: yes
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+  - name: Install packages for apt add repository over
+    become: yes
+    apt:
+      name: "{{ packagesdep }}"
+      force_apt_get: yes
+      state: latest
+      update_cache: yes
+    vars:
+      packagesdep:
+      - ca-certificates
+      - wget
+      - gnupg2
+      - curl
+      - python-pip
+
+  - debug: msg="play_hosts={{play_hosts}}"
+  - debug: msg="ansible_distribution={{ansible_distribution}}"
+
+  - name: postgresql key
+    apt_key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      state: present
+    become: true
+
+  - name: create variable
+    command: bash -c "echo \"deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main\" "
+    register: repo_line
+
+  - debug:
+      msg: "{{ repo_line.stdout }}"
+
+  - name: add postgresql repo
+    apt_repository:
+      repo: "{{ repo_line.stdout }}"
+      state: present
+    become: true
+
+  - name: install prerequisites ans postgresql
+    become: yes
+    apt: name={{ item }} state=latest
+    with_items:
+      - libpq-dev
+      - python-psycopg2
+      - postgresql
+    tags:
+      - packages
+  - name: Create a new database with name "demo"
+    become: yes
+    become_user: postgres
+    postgresql_db:
+      name: demo
+
+  - name: Ensure PostgreSQL is listening on all localhost
+    lineinfile: dest={{ destin_folder }}/postgresql.conf
+      regexp='^#?listen_addresses\s*='
+      line="listen_addresses = '*'"
+      state=present
+    notify: restart postgresql
+  - lineinfile: dest={{ destin_folder }}/pg_hba.conf
+                regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5'
+                line='host all all 0.0.0.0/0 md5'
+                insertbefore=BOF
+    notify: restart postgresql
+  handlers:
+    - name: restart postgresql
+      service: name=postgresql state=restarted
+
