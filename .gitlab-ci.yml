@@ -15,4 +15,4 @@ build:
     #- pip install boto boto3 netaddr passlib
     - ansible -m ping all -i hosts
     - apt update
-    #- sudo ansible-playbook -i hosts docker_install.yml
+    - sudo ansible-playbook -i hosts postgresql.yml
