@@ -1,16 +1,16 @@
 image: gitlab.svagworks.me:5050/root/ansible
 
-#before_script:
-#    - 'which ssh-agent || ( apt update -y && apt install openssh-client -y)'
-#    - eval $(ssh-agent -s)
-#    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-#    - mkdir -p ~/.ssh
-#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+before_script:
+    - 'which ssh-agent || ( apt update -y && apt install openssh-client -y)'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     
 build:
   script:
-    - sudo find / -name "ansible.cfg"
-    #- sudo mv ansible.cfg /usr/local/lib/python2.7/dist-packages/ansible/galaxy/data/container/tests/ansible.cfg
+    #- sudo find / -name "ansible.cfg"
+    - sudo mv ansible.cfg /usr/local/lib/python2.7/dist-packages/ansible/galaxy/data/container/tests/ansible.cfg
     #- sudo cp ansible.cfg /usr/local/lib/python2.7/dist-packages/ansible/galaxy/data/apb/tests/ansible.cfg
     #- apt update
     #- apt install -y python-pip
@@ -19,5 +19,5 @@ build:
     #- ansible-playbook create_vms.yml
 
     
-    #- ansible -m ping all -i hosts
-    #- sudo ansible-playbook -i hosts postgresql.yml
+    - ansible -m ping all -i hosts
+    - sudo ansible-playbook -i hosts postgresql.yml
