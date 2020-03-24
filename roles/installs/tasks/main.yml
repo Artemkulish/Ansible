@@ -1,0 +1,12 @@
+---
+# tasks file for install_java
+- name: install jre
+  apt: name=default-jre state=latest
+
+- name: install jdk
+  apt: name=default-jdk state=latest
+- name: install
+  apt: name=postgresql-client-common state=latest
+- name: postgresql-client
+  apt: name=postgresql-client state=latest
+
