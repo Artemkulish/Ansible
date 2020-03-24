@@ -6,6 +6,9 @@
   gather_facts: yes
   vars:
     destin_folder: /etc/postgresql/12/main
+    db_name: demo1
+    db_user: root
+    db_password: root
 
   tasks:
   - name: Update the apt package index
@@ -15,6 +18,7 @@
       state: latest
       update_cache: yes
       force_apt_get: yes
+
   - name: Install packages for apt add repository over
     become: yes
     apt:
@@ -61,11 +65,6 @@
       - postgresql
     tags:
       - packages
-#  - name: Create a new database with name "demo"
-#    become: yes
-#    become_user: postgres
-#    postgresql_db:
-#      name: demo
 
   - name: Ensure PostgreSQL is listening on all localhost
     lineinfile: dest={{ destin_folder }}/postgresql.conf
@@ -73,11 +72,43 @@
       line="listen_addresses = '*'"
       state=present
     notify: restart postgresql
+
   - lineinfile: dest={{ destin_folder }}/pg_hba.conf
                 regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5'
                 line='host all all 0.0.0.0/0 md5'
                 insertbefore=BOF
     notify: restart postgresql
+
+  - lineinfile: dest={{ destin_folder }}/pg_hba.conf
+                regexp='local\s+all\s\s+postgres\s+md5'
+                line='local all postgres  trust'
+                insertbefore=BOF
+    notify: restart postgresql
+
+  - name: Ensure database is created
+    sudo_user: postgres
+    postgresql_db: name={{ db_name }}
+               encoding='UTF-8'
+               lc_collate='en_US.UTF-8'
+               lc_ctype='en_US.UTF-8'
+               template='template0'
+               state=present
+
+  - name: Ensure user has access to the database
+    sudo_user: postgres
+    postgresql_user: db={{ db_name }}
+                 name={{ db_user }}
+                 password={{ db_password }}
+                 priv=ALL
+                 state=present
+
+  - name: Ensure user does not have unnecessary privileges
+    sudo_user: postgres
+    postgresql_user: name={{ db_user }}
+                 role_attr_flags=NOSUPERUSER,NOCREATEDB
+                 state=present
+
+
   handlers:
     - name: restart postgresql
       service: name=postgresql state=restarted
