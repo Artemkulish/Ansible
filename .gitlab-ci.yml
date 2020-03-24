@@ -16,4 +16,4 @@ build:
     - apt install -y python-pip
     - pip install apache-libcloud
     - ansible -m ping all -i hosts
-    - sudo ansible-playbook -i hosts postgresql.yml
+    #- sudo ansible-playbook -i hosts postgresql.yml
