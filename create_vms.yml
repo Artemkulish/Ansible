@@ -41,5 +41,5 @@
   hosts: gce_instaces_java
   become: yes
   become_method: sudo
-  roles:
-  - installs
+  #roles:
+  #- installs
