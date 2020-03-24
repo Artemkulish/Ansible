@@ -10,12 +10,12 @@ before_script:
 build:
   script:
     - ls
-    #- apt update
-    #- apt install -y python-pip
-    #- pip install apache-libcloud
-    #- pip install requests google-auth
-    #- ansible-playbook create_vms.yml
+    - apt update
+    - apt install -y python-pip
+    - pip install apache-libcloud
+    - pip install requests google-auth
+    - ansible-playbook create_vms.yml
 
     
-    - ansible -m ping all -i hosts
-    - sudo ansible-playbook -i hosts postgresql.yml
+    #- ansible -m ping all -i hosts
+    #- sudo ansible-playbook -i hosts postgresql.yml
