@@ -12,7 +12,7 @@ build:
     - ls
     - cat hosts
     - ansible --version
-    #- pip install boto boto3 netaddr passlib
-    - ansible -m ping all -i hosts
     - apt update
+    - pip install boto boto3 netaddr passlib
+    - ansible -m ping all -i hosts
     - sudo ansible-playbook -i hosts postgresql.yml
