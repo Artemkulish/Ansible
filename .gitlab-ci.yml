@@ -14,6 +14,8 @@ build:
     - apt install -y python-pip
     - pip install apache-libcloud
     - pip install requests google-auth
-    - ansible -m ping all -i hosts
     - ansible-playbook create_vms.yml
+
+    
+    #- ansible -m ping all -i hosts
     #- sudo ansible-playbook -i hosts create_vms.yml
