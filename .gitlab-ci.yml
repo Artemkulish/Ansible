@@ -1,4 +1,4 @@
 build:
     script:
         #- echo "It's okay"
-        - ansible-playbook postgresql-instanse.yml
+        - ansible-playbook postgresql.yml
