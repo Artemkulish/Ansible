@@ -3,6 +3,6 @@
 service_account_email: new-755@first-one-257817.iam.gserviceaccount.com
 credentials_file: /home/first-one-257817-221e08c80908.json
 project_id: first-one-257817
-machine_type: f1-micro
+machine_type: n1-standard-1
 image: debian-9
 zone: europe-north1-a
