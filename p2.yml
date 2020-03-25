@@ -8,8 +8,8 @@
   -var
 
   tasks:
-   - name: Launch instances
-     gce:
+  - name: Launch instances
+    gce:
       instance_names: psql-instance-1,psql-instance-2
       machine_type: "{{ machine_type }}"
       image: "{{ image }}"
@@ -18,24 +18,24 @@
       project_id: "{{ project_id }}"
       zone: "{{ zone }}"
       tags: webserver
-     register: gce
-   - debug:
-        var: gce
-   - name: Save hosts data
-     add_host:
+    register: gce
+  - debug:
+      var: gce
+  - name: Save hosts data
+    add_host:
       hostname: "{{ item.public_ip }}"
       groupname: gce_instaces_java
-     with_items: "{{ gce.instance_data }}"
-   - debug:
-       var: hostname
-   - name: Wait for SSH for instances
-     wait_for:
+    with_items: "{{ gce.instance_data }}"
+  - debug:
+      var: hostname
+  - name: Wait for SSH for instances
+    wait_for:
       delay: 1
       host: "{{ item.public_ip }}"
       port: 22
       state: started
       timeout: 30
-     with_items: "{{ gce.instance_data }}"
+    with_items: "{{ gce.instance_data }}"
      
 - name: Configure Hosts
   hosts: gce_instaces_java
