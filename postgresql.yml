@@ -6,13 +6,8 @@
   connection: local
   gather_facts: no
   
-  vars:
-    service_account_email: postgres-servers@macro-truck-257415.iam.gserviceaccount.com
-    credentials_file: /home/darya_olejnik/macro-truck-257415-9cda3c9848e5.json
-    project_id: macro-truck-257415
-    machine_type: f1-micro
-    image: debian-9
-    zone: europe-north1-a
+  vars_files:
+    - var
   tasks:
   - name: Launch instances
     gce:
