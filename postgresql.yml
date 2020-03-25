@@ -7,7 +7,7 @@
   gather_facts: no
   
   vars_files:
-    - var
+  - var
   tasks:
   - name: Launch instances
     gce:
