@@ -1,114 +1,51 @@
 ---
 - name: install postgresql on Ubuntu or Debian
-  hosts: all
+  hosts: localhost
+#  become: yes
+#  become_method: sudo
+  connection: local
+  gather_facts: no
+  
+  vars:
+    service_account_email: postgres-servers@macro-truck-257415.iam.gserviceaccount.com
+    credentials_file: /home/darya_olejnik/macro-truck-257415-9cda3c9848e5.json
+    project_id: macro-truck-257415
+    machine_type: f1-micro
+    image: debian-9
+    zone: europe-north1-a
+  tasks:
+  - name: Launch instances
+    gce:
+      instance_names: postgres-instance       
+      machine_type: "{{ machine_type }}"
+      image: "{{ image }}"
+      service_account_email: "{{ service_account_email }}"
+      credentials_file: "{{ credentials_file }}"
+      project_id: "{{ project_id }}"
+      zone: "{{ zone }}"
+      tags: webserver
+    register: gce
+  - debug:
+      var: gce
+  - name: Save hosts data
+    add_host:
+      hostname: "{{ item.public_ip }}"
+      groupname: gce_instaces_java
+    with_items: "{{ gce.instance_data }}"
+  - debug:
+      var: hostname
+  - name: Wait for SSH for instances
+    wait_for:
+      delay: 1
+      host: "{{ item.public_ip }}"
+      port: 22
+      state: started
+      timeout: 30
+    with_items: "{{ gce.instance_data }}"
+  
+- name: Configure Hosts
+  hosts: gce_instances_java
   become: yes
   become_method: sudo
-  gather_facts: yes
-  vars:
-    destin_folder: /etc/postgresql/12/main
-    db_name: demo1
-    db_user: root
-    db_password: root
-
-  tasks:
-  - name: Update the apt package index
-    become: yes
-    apt:
-      name: "*"
-      state: latest
-      update_cache: yes
-      force_apt_get: yes
-
-  - name: Install packages for apt add repository over
-    become: yes
-    apt:
-      name: "{{ packagesdep }}"
-      force_apt_get: yes
-      state: latest
-      update_cache: yes
-    vars:
-      packagesdep:
-      - ca-certificates
-      - wget
-      - gnupg2
-      - curl
-      - python-pip
-
-  - debug: msg="play_hosts={{play_hosts}}"
-  - debug: msg="ansible_distribution={{ansible_distribution}}"
-
-  - name: postgresql key
-    apt_key:
-      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-      state: present
-    become: true
-
-  - name: create variable
-    command: bash -c "echo \"deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main\" "
-    register: repo_line
-
-  - debug:
-      msg: "{{ repo_line.stdout }}"
-
-  - name: add postgresql repo
-    apt_repository:
-      repo: "{{ repo_line.stdout }}"
-      state: present
-    become: true
-
-  - name: install prerequisites ans postgresql
-    become: yes
-    apt: name={{ item }} state=latest
-    with_items:
-      - libpq-dev
-      - python-psycopg2
-      - postgresql
-    tags:
-      - packages
-
-  - name: Ensure PostgreSQL is listening on all localhost
-    lineinfile: dest={{ destin_folder }}/postgresql.conf
-      regexp='^#?listen_addresses\s*='
-      line="listen_addresses = '*'"
-      state=present
-    notify: restart postgresql
-
-  - lineinfile: dest={{ destin_folder }}/pg_hba.conf
-                regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5'
-                line='host all all 0.0.0.0/0 md5'
-                insertbefore=BOF
-    notify: restart postgresql
-
-  - lineinfile: dest={{ destin_folder }}/pg_hba.conf
-                regexp='local\s+all\s\s+postgres\s+md5'
-                line='local all postgres  trust'
-                insertbefore=BOF
-    notify: restart postgresql
-
-  - name: Ensure database is created
-    become_user: postgres
-    postgresql_db: name={{ db_name }}
-               encoding='UTF-8'
-               lc_collate='en_US.UTF-8'
-               lc_ctype='en_US.UTF-8'
-               template='template0'
-               state=present
-
-  - name: Ensure user has access to the database
-    become_user: postgres
-    postgresql_user: db={{ db_name }}
-                 name={{ db_user }}
-                 password={{ db_password }}
-                 priv=ALL
-                 state=present
-
-  - name: Ensure user does not have unnecessary privileges
-    become_user: postgres
-    postgresql_user: name={{ db_user }}
-                 role_attr_flags=NOSUPERUSER,NOCREATEDB
-                 state=present
-
-
-  handlers:
-    - name: restart postgresql
-      service: name=postgresql state=restarted
+  roles:
+  - install_postgresql
