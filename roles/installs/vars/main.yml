@@ -1,2 +1,11 @@
 ---
 # vars file for install_java
+zookeeper:
+  installation_path: /etc
+  configuration:
+    port: 2181
+    log_path: /var/log/zookeeper
+    data_dir: /var/lib/zookeeper
+    tick_time: 2000 
+    init_limit: 5
+    sync_limit: 2 

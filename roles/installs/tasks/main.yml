@@ -1,12 +1,42 @@
 ---
 # tasks file for install_java
-- name: install jre
-  apt: name=default-jre state=latest
+
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
 
 - name: install jdk
+  become: true
   apt: name=default-jdk state=latest
-- name: install
+
+- name: install postgresql-client
+  become: true
   apt: name=postgresql-client-common state=latest
+
 - name: postgresql-client
+  become: true
   apt: name=postgresql-client state=latest
+
+- name: Install zookepeer
+  become: true
+  apt: name=zookeeper state=latest
+- name: set zookeeper data dir
+  file: path={{ zookeeper.configuration.data_dir }} state=directory 
+  tags: 
+    - zookeeper
+    - zk_configuration
+
+- name: set zookeeper log dir
+  file: path={{ zookeeper.configuration.log_path }} state=directory 
+  tags:
+    - zookeeper
+    - zk_configuration
+
+- name: set zookeeper data dir
+  file: path={{ zookeeper.configuration.data_dir }} state=directory
+  tags: 
+    - zookeeper
+    - zk_configuration
 
