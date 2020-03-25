@@ -1,0 +1,18 @@
+---
+# vars file for install_postgresql
+destin_folder: /etc/postgresql/12/main
+db_name: demo1
+db_user: root
+db_password: root
+service_account_email: postgres-servers@macro-truck-257415.iam.gserviceaccount.com
+credentials_file: /home/darya_olejnik/macro-truck-257415-9cda3c9848e5.json
+project_id: macro-truck-257415
+machine_type: f1-micro
+image: debian-9
+zone: us-west2-a
+packagesdep:
+- ca-certificates
+- wget
+- gnupg2
+- curl
+- python-pip
