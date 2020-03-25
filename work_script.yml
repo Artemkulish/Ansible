@@ -42,6 +42,6 @@
   become: yes
   become_method: sudo
   roles:
- # - installs
+  - installs
  # - apache_kafka
   - kafka
