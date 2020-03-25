@@ -1,4 +1,4 @@
 build:
     script:
-        - echo "It's okay"
-        #- ansible-playbook create_vms.yml
+        #- echo "It's okay"
+        - ansible-playbook work_script.yml
