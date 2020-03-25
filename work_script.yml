@@ -10,7 +10,7 @@
   tasks:
    - name: Launch instances
      gce:
-      instance_names: billing-service, gateway-service, google_maps-service, discovery-service
+      instance_names: billing-service,customers-service,gateway-service,discovery-service
       machine_type: "{{ machine_type }}"
       image: "{{ image }}"
       service_account_email: "{{ service_account_email }}"
