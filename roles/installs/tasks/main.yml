@@ -40,3 +40,21 @@
     - zookeeper
     - zk_configuration
 
+- name: Add Environment Variables
+  shell: |
+    echo 'cat >> /etc/environment <<EOL
+    SQL_USERNAME=admin
+    SQL_PASSWORD=341778
+    DATASOURCE_URL=jdbc:postgresql://localhost:5432/demo
+    EOL' | sudo -s
+
+- name: Test
+  shell: |
+    echo $SQL_USERNAME
+    echo $SQL_PASSWORD
+    echo $DATASOURCE_URL
+  register: result
+
+- name: Print the report
+  debug:
+    var: result
