@@ -1,9 +1,17 @@
 stages:
-    - ansible_script
+    - ansible
 
-build:
-    stage: ansible_script
+.ansible__template: &ansible_template
+    stage: ansible
     script:
-       # - echo "It's okay"
-        - ansible-playbook p2.yml
+        - ansible-playbook $PLAYBOOK
     when: manual
+    
+    
+database_instance:
+    <<: *ansible__template
+    variables:
+        PLAYBOOK: p2.yml
+    only:
+        changes:
+            - p2.yml  
