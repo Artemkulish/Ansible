@@ -89,3 +89,4 @@
   postgresql_user: name={{ db_user }}
                role_attr_flags=NOSUPERUSER,NOCREATEDB
                state=present
+  notify: restart postgresql
