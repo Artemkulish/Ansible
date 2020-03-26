@@ -43,7 +43,6 @@
   become_method: sudo
   roles:
   - installs
- # - apache_kafka
   - kafka
 
 
