@@ -1,4 +1,8 @@
+stages:
+    - ansible_script
+
 build:
+    stage: ansible_script
     script:
        # - echo "It's okay"
         - ansible-playbook p2.yml
