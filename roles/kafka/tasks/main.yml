@@ -35,6 +35,8 @@
        systemctl start kafka
        journalctl -u kafka
        systemctl enable kafka
+       service zookeeper restart
+       /home/kafka/kafka/kafka_2.11-2.1.1/bin/kafka-server-start.sh /home/kafka/kafka/kafka_2.11-2.1.1/config/server.properties </dev/null &>/dev/null &
 #      chown -R kafka:kafka /home/kafka
 #      chmod -R 777 /home/kafka
 
