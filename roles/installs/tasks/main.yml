@@ -14,6 +14,10 @@
 - name: install lsof
   apt: name=lsof state=latest
 
+- name: install SumoCollector
+  shell: |
+      wget "https://collectors.sumologic.com/rest/download/linux/64" -O SumoCollector.sh && chmod +x SumoCollector.sh
+
 - name: install postgresql-client
   become: true
   apt: name=postgresql-client-common state=latest
