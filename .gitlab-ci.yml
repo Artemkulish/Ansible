@@ -1,7 +1,7 @@
 stages:
     - ansible
 
-.ansible__template: &ansible_template
+.ansible_template: &ansible_template
     stage: ansible
     script:
         - ansible-playbook $PLAYBOOK
@@ -9,7 +9,7 @@ stages:
     
     
 database_instance:
-    <<: *ansible__template
+    <<: *ansible_template
     variables:
         PLAYBOOK: p2.yml
     only:
