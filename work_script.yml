@@ -26,8 +26,7 @@
       hostname: "{{ item.public_ip }}"
       groupname: gce_instaces_java
      with_items: "{{ gce.instance_data }}"
-   - debug:
-       var: hostname
+ 
    - name: Wait for SSH for instances
      wait_for:
       delay: 1
