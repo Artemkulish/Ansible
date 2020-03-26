@@ -1,18 +1,13 @@
 ---
 # tasks file for kafka
 
-- name: create kafka group 
-  group: name=kafka state=present
- 
-- name: create kafka user
-  user: name=kafka group=kafka createhome=yes authorization=''
+
+#- name: create kafka user
+#  user: name=kafka createhome=yes authorization=''
 
 - name: make user sudo
   become: yes
   shell: adduser kafka sudo
-
-- name: curl install
-  apt: name=curl
 
 - name: install kafka
   become: yes
@@ -24,9 +19,11 @@
       tar -xvzf kafka_2.11-2.1.1.tgz -C /home/kafka/kafka
 
 - name: Config kafka
+ # become: yes
   template: src=server_configuration.j2 dest=/home/kafka/kafka/kafka_2.11-2.1.1/config/server.properties     
 
 - name: Create run zookeeper
+ # become: yes
   template: src=zookeeper_service.j2 dest=/etc/systemd/system/zookeeper.service
 
 - name: Create run kafka
@@ -35,9 +32,9 @@
 - name: Start kafka
   become: yes 
   shell: |
-      chown -R kafka:kafka /home/kafka
-      chmod -R 777 /home/kafka
-      touch  /home/kafka/kafka/kafka.log
-      systemctl start kafka
-      journalctl -u kafka
-      systemctl enable kafka
+       systemctl start kafka
+       journalctl -u kafka
+       systemctl enable kafka
+#      chown -R kafka:kafka /home/kafka
+#      chmod -R 777 /home/kafka
+
