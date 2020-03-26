@@ -11,6 +11,9 @@
   become: true
   apt: name=default-jdk state=latest
 
+- name: install lsof
+  apt: name=lsof state=latest
+
 - name: install postgresql-client
   become: true
   apt: name=postgresql-client-common state=latest
@@ -19,42 +22,19 @@
   become: true
   apt: name=postgresql-client state=latest
 
-- name: Install zookepeer
-  become: true
-  apt: name=zookeeper state=latest
-- name: set zookeeper data dir
-  file: path={{ zookeeper.configuration.data_dir }} state=directory 
-  tags: 
-    - zookeeper
-    - zk_configuration
-
-- name: set zookeeper log dir
-  file: path={{ zookeeper.configuration.log_path }} state=directory 
-  tags:
-    - zookeeper
-    - zk_configuration
-
-- name: set zookeeper data dir
-  file: path={{ zookeeper.configuration.data_dir }} state=directory
-  tags: 
-    - zookeeper
-    - zk_configuration
-
-- name: Add Environment Variables
+- name: install zookeeper
   shell: |
-    echo 'cat >> /etc/environment <<EOL
-    SQL_USERNAME=admin
-    SQL_PASSWORD=341778
-    DATASOURCE_URL=jdbc:postgresql://localhost:5432/demo
-    EOL' | sudo -s
+       mkdir -p /home/zookeeper
+       cd /home/zookeeper
+       wget  https://downloads.apache.org/zookeeper/zookeeper-3.6.0/apache-zookeeper-3.6.0-bin.tar.gz
+       tar -zxf apache-zookeeper-3.6.0-bin.tar.gz
+       mkdir -p /home/zookeeper/data
 
-- name: Test
+- name: Config zookepeer
+  template: src=zoo.j2 dest=/home/zookeeper/apache-zookeeper-3.6.0-bin/conf/zoo.cfg          
+ 
+- name: start zookeeper
   shell: |
-    echo $SQL_USERNAME
-    echo $SQL_PASSWORD
-    echo $DATASOURCE_URL
-  register: result
+     /home/zookeeper/apache-zookeeper-3.6.0-bin/bin/zkServer.sh start
 
-- name: Print the report
-  debug:
-    var: result
+ 
