@@ -7,7 +7,6 @@ stages:
         - ansible-playbook $PLAYBOOK
     when: manual
     
-    
 database_instance:
     <<: *ansible_template
     variables:
@@ -15,3 +14,19 @@ database_instance:
     only:
         changes:
             - p2.yml  
+
+webserver_instance:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: work_script.yml
+    only:
+        changes:
+            - work_script.yml
+            
+docker_installation:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: docker_install.yml
+    only:
+        changes:
+            - docker_install.yml
