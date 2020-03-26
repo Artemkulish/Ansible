@@ -14,9 +14,21 @@
 - name: install lsof
   apt: name=lsof state=latest
 
-- name: install SumoCollector
-  shell: |
-      wget "https://collectors.sumologic.com/rest/download/linux/64" -O SumoCollector.sh && chmod +x SumoCollector.sh
+- name: Get deb file
+  get_url:
+    url: https://collectors.sumologic.com/rest/download/deb/64
+    dest: /tmp/sumologic.deb
+
+- name: Install Sumologic deb
+  apt:
+    deb: '/tmp/sumologic.deb'
+
+- name: Start service
+  service:
+    name: collector
+    state: started
+    enabled: yes
+
 
 - name: install postgresql-client
   become: true
