@@ -2,3 +2,4 @@ build:
     script:
        # - echo "It's okay"
         - ansible-playbook p2.yml
+    when: manual
