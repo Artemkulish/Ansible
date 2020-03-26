@@ -2,8 +2,8 @@
 # tasks file for kafka
 
 
-#- name: create kafka user
-#  user: name=kafka createhome=yes authorization=''
+- name: create kafka user
+  user: name=kafka createhome=yes
 
 - name: make user sudo
   become: yes
