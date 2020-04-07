@@ -37,6 +37,9 @@
      with_items: "{{ gce.instance_data }}"
    - debug:
        var: hostname
+   - name: Get ip
+     shell: echo {{ item.private_ip }} >> /home/Ansible/hosts
+     with_items: "{{ gce.instance_data }}"
    - name: Wait for SSH for instances
      wait_for:
       delay: 10
