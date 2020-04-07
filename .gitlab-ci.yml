@@ -30,3 +30,10 @@ docker_installation:
     only:
         changes:
             - docker_install.yml
+conteiner-opimized:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: create_conteiner-opt.yml
+    only:
+        changes:
+            - create_conteiner-opt.yml
