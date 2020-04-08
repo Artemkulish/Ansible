@@ -1,7 +1,7 @@
 ---
 # tasks file for docker-compose
 - name: install docker-compose
-  script: docker-compose.sh
+  script: ./docker-compose.sh
   args:
      executable: /bin/bash
      
