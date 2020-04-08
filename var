@@ -1,8 +1,8 @@
 ---
 
-service_account_email: new-755@first-one-257817.iam.gserviceaccount.com
-credentials_file: /home/macro-truck-257415-9cda3c9848e5.json
+service_account_email: demo3-739@first-one-257817.iam.gserviceaccount.com
+credentials_file: /home/first-one-257817-f28046149a65.json
 project_id: first-one-257817
 machine_type: n1-standard-1
-image: debian-9
-zone: europe-west4-a
+image: cos-69-10895-385-0
+zone: us-central1-a
