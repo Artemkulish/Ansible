@@ -33,7 +33,7 @@
        var: hostname
    - name: Wait for SSH for instances
      wait_for:
-      delay: 10
+      delay: 1
       host: "{{ item.public_ip }}"
       port: 22
       state: started
