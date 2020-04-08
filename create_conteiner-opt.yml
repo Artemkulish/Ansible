@@ -22,7 +22,7 @@
       credentials_file: "{{ credentials_file }}"
       project_id: "{{ project_id }}"
       zone: "{{ zone }}"
-      external_ip: none
+#      external_ip: none
       tags: 
       - webserver
       - http-server
@@ -32,7 +32,7 @@
         var: gce
    - name: Save hosts data
      add_host:
-      hostname: "{{ item.private_ip }}"
+      hostname: "{{ item.public_ip }}"
       groupname: gce_instaces_java
      with_items: "{{ gce.instance_data }}"
    - debug:
@@ -40,7 +40,7 @@
    - name: Wait for SSH for instances
      wait_for:
       delay: 10
-      host: "{{ item.private_ip }}"
+      host: "{{ item.public_ip }}"
       port: 22
       state: started
       timeout: 60
