@@ -17,7 +17,7 @@
       register: network
 
     - name: managed-services      
-      command: gcloud compute addresses create google-managed-services-netsub --global --purpose=VPC_PEERING --prefix-length=16 --description="peering range for Google" --network=network-subnetwork --project=winged-polygon-271409
+      command: gcloud compute addresses create google-managed-services-netsub --global --purpose=VPC_PEERING --prefix-length=16 --description="peering range for Google" --network=network-subnetwork --project="{{ project_id }}"
      
     - name: vpc-peering connect
-      command: gcloud services vpc-peerings update --service=servicenetworking.googleapis.com --ranges=google-managed-services-netsub --network=network-subnetwork --project=winged-polygon-271409 --force
+      command: gcloud services vpc-peerings update --service=servicenetworking.googleapis.com --ranges=google-managed-services-netsub --network=network-subnetwork --project="{{ project_id }}" --force
