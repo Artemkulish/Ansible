@@ -1,0 +1,24 @@
+---
+- name: Create an instance
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - var
+
+  tasks:
+    - name: create a network
+      gcp_compute_network:
+        name: network-subnetwork
+        auto_create_subnetworks: 'true'
+        project: "{{ project_id }}"
+        auth_kind: serviceaccount
+        service_account_file: "{{ credentials_file }}"
+        state: present
+      register: network
+
+    - name: managed-services      
+      command: gcloud compute addresses create google-managed-services-netsub --global --purpose=VPC_PEERING --prefix-length=16 --description="peering range for Google" --network=network-subnetwork --project=winged-polygon-271409
+     
+    - name: vpc-peering connect
+      command: gcloud services vpc-peerings update --service=servicenetworking.googleapis.com --ranges=google-managed-services-netsub --network=network-subnetwork --project=winged-polygon-271409 --force
+
