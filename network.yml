@@ -21,4 +21,3 @@
      
     - name: vpc-peering connect
       command: gcloud services vpc-peerings update --service=servicenetworking.googleapis.com --ranges=google-managed-services-netsub --network=network-subnetwork --project=winged-polygon-271409 --force
-
