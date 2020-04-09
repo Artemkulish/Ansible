@@ -37,3 +37,11 @@ conteiner-opimized:
     only:
         changes:
             - create_conteiner-opt.yml
+
+conteiner-opimized:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: network.yml
+    only:
+        changes:
+            - network.yml
