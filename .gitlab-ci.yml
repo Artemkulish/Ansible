@@ -38,7 +38,7 @@ conteiner-opimized:
         changes:
             - create_conteiner-opt.yml
 
-conteiner-opimized:
+network:
     <<: *ansible_template
     variables:
         PLAYBOOK: network.yml
@@ -46,7 +46,7 @@ conteiner-opimized:
         changes:
             - network.yml
             
- conteiner-opimized:
+ cloud-sql:
     <<: *ansible_template
     variables:
         PLAYBOOK: cloudsql.yml
