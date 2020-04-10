@@ -54,3 +54,11 @@ cloud-sql:
     only:
         changes:
             - cloudsql.yml          
+
+cloud-sql:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: loadbalancer.yml
+    only:
+        changes:
+            - loadbalancer.yml  
