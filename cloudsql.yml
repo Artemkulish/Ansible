@@ -26,7 +26,7 @@
       - sqlcloud
 
     - name: boot SQL instance
-      command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier db-g1-small --zone="us-central1-a" --network=projects/winged-polygon-271409/global/networks/network-subnetwork --no-assign-ip
+      command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier db-g1-small --zone="us-central1-a" --network=projects/first-one-257817/global/networks/network-subnetwork --no-assign-ip
       register: data
 
     - name: set postgres password
@@ -49,6 +49,4 @@
        - payment
        - trip
        - vehicle
-       
-       
        
