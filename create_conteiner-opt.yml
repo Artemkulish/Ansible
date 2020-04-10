@@ -31,13 +31,14 @@
      with_items: "{{ gce.instance_data }}"
    - debug:
        var: hostname
+   
    - name: Wait for SSH for instances
      wait_for:
       delay: 1
       host: "{{ item.public_ip }}"
       port: 22
       state: started
-      timeout: 60
+      timeout: 120
      with_items: "{{ gce.instance_data }}"
 
 - name: Configure Hosts
