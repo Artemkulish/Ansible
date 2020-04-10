@@ -30,6 +30,7 @@ docker_installation:
     only:
         changes:
             - docker_install.yml
+            
 conteiner-opimized:
     <<: *ansible_template
     variables:
@@ -46,7 +47,7 @@ network:
         changes:
             - network.yml
             
- cloud-sql:
+cloud-sql:
     <<: *ansible_template
     variables:
         PLAYBOOK: cloudsql.yml
