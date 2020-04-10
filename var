@@ -7,3 +7,5 @@ machine_type: n1-standard-1
 image: cos-69-10895-385-0
 zone: us-central1-a
 sql_name: test3
+router_name: router
+nat_name: nat
