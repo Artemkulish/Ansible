@@ -1,5 +1,5 @@
 ---
-- name: Create VM
+- name: Create Conteiner-opimized OS and configure CloudNAT
   hosts: localhost
   connection: local
   gather_facts: no
@@ -7,6 +7,17 @@
   vars_files:
   - var
   tasks:
+  - name: create a router
+    command: gcloud compute routers create "{{ router_name }}"\
+                --network default \
+                --region "{{ zone }}"
+  - name: create CloudNAT
+    command: gcloud compute routers nats create "{{ nat_name }}" \
+               --router="{{ router_name }}" \
+               --region="{{ zone }}' \
+               --auto-allocate-nat-external-ips \
+               --nat-all-subnet-ip-ranges \
+               --enable-logging
    - name: Launch instances
      gce:
       instance_names: demo4   
@@ -16,7 +27,7 @@
       credentials_file: "{{ credentials_file }}"
       project_id: "{{ project_id }}"
       zone: "{{ zone }}"
-#      external_ip: none
+      external_ip: none
       tags: 
       - webserver
       - http-server
@@ -26,7 +37,7 @@
         var: gce
    - name: Save hosts data
      add_host:
-      hostname: "{{ item.public_ip }}"
+      hostname: "{{ item.private_ip }}"
       groupname: gce_instaces_java
      with_items: "{{ gce.instance_data }}"
    - debug:
@@ -35,7 +46,7 @@
    - name: Wait for SSH for instances
      wait_for:
       delay: 1
-      host: "{{ item.public_ip }}"
+      host: "{{ item.private_ip }}"
       port: 22
       state: started
       timeout: 120
