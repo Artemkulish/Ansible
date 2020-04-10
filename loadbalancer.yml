@@ -9,7 +9,7 @@
    - name: Create gce load balancer
      gce_lb:
       name: lbserver2
-      external_ip: ldip
+      external_ip: demo3
       state: present
       region: us-central1
       members: ["us-central1-a/instance-5"]
@@ -19,6 +19,3 @@
       service_account_email: "{{ service_account_email }}"
       credentials_file: "{{ credentials_file }}"
       project_id: "{{ project_id }}"
-
-
-
