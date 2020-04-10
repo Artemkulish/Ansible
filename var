@@ -6,4 +6,4 @@ project_id: first-one-257817
 machine_type: n1-standard-1
 image: cos-69-10895-385-0
 zone: us-central1-a
-sql_name: vvvvv
+sql_name: test1
