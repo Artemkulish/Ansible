@@ -45,3 +45,11 @@ conteiner-opimized:
     only:
         changes:
             - network.yml
+            
+ conteiner-opimized:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: cloudsql.yml
+    only:
+        changes:
+            - cloudsql.yml          
