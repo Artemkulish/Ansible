@@ -14,7 +14,7 @@
   - name: create CloudNAT
     command: gcloud compute routers nats create "{{ nat_name }}" \
                --router="{{ router_name }}" \
-               --region="{{ zone }}' \
+               --region="{{ zone }}" \
                --auto-allocate-nat-external-ips \
                --nat-all-subnet-ip-ranges \
                --enable-logging
