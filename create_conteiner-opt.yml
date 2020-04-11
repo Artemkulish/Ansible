@@ -8,9 +8,7 @@
   - var
   tasks:
   - name: create a router
-    command: gcloud compute routers create "{{ router_name }}"\
-                --network default \
-                --region "{{ zone_network }}"
+    command: gcloud compute routers create "{{ router_name }}" --network=default --region="{{ zone_network }}"
   - name: create CloudNAT
     command: gcloud compute routers nats create "{{ nat_name }}" \
                --router="{{ router_name }}" \
