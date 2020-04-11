@@ -18,8 +18,8 @@
                --auto-allocate-nat-external-ips \
                --nat-all-subnet-ip-ranges \
                --enable-logging
-   - name: Launch instances
-     gce:
+  - name: Launch instances
+    gce:
       instance_names: demo4   
       machine_type: "{{ machine_type }}"
       image: "{{ image }}"
@@ -32,25 +32,25 @@
       - webserver
       - http-server
       - https-server
-     register: gce
-   - debug:
-        var: gce
-   - name: Save hosts data
-     add_host:
+    register: gce
+  - debug:
+      var: gce
+  - name: Save hosts data
+    add_host:
       hostname: "{{ item.private_ip }}"
       groupname: gce_instaces_java
-     with_items: "{{ gce.instance_data }}"
-   - debug:
-       var: hostname
+    with_items: "{{ gce.instance_data }}"
+  - debug:
+      var: hostname
    
-   - name: Wait for SSH for instances
-     wait_for:
+  - name: Wait for SSH for instances
+    wait_for:
       delay: 1
       host: "{{ item.private_ip }}"
       port: 22
       state: started
       timeout: 120
-     with_items: "{{ gce.instance_data }}"
+    with_items: "{{ gce.instance_data }}"
 
 - name: Configure Hosts
   hosts: gce_instaces_java
