@@ -7,15 +7,15 @@
   vars_files:
   - var
   tasks:
-  - name: create a router
-    command: gcloud compute routers create "{{ router_name }}" --network=default --region="{{ zone_network }}"
-  - name: create CloudNAT
-    command: gcloud compute routers nats create "{{ nat_name }}" \
-               --router="{{ router_name }}" \
-               --region="{{ zone_network }}" \
-               --auto-allocate-nat-external-ips \
-               --nat-all-subnet-ip-ranges \
-               --enable-logging
+#  - name: create a router
+#    command: gcloud compute routers create "{{ router_name }}" --network=default --region="{{ zone_network }}"
+#  - name: create CloudNAT
+#    command: gcloud compute routers nats create "{{ nat_name }}" \
+#               --router="{{ router_name }}" \
+#               --region="{{ zone_network }}" \
+#               --auto-allocate-nat-external-ips \
+#               --nat-all-subnet-ip-ranges \
+#               --enable-logging
   - name: Launch instances
     gce:
       instance_names: demo4   
