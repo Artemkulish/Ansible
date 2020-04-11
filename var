@@ -9,3 +9,4 @@ zone: us-central1-a
 sql_name: test4
 router_name: router
 nat_name: nat
+zone_network: us-central1
