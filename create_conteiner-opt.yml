@@ -18,7 +18,7 @@
 #               --enable-logging
   - name: Launch instances
     gce:
-      instance_names: demo4   
+      instance_names: "{{ conteiner_optimized_name }}"  
       machine_type: "{{ machine_type }}"
       image: "{{ image }}"
       service_account_email: "{{ service_account_email }}"
