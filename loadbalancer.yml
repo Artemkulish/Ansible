@@ -12,7 +12,7 @@
       external_ip: demo3
       state: present
       region: us-central1
-      members: ["us-central1-a/"{{conteiner_optimized_name}}""]
+      members: ["us-central1-a/demo4"]
       httphealthcheck_name: hc
       httphealthcheck_port: 80
       httphealthcheck_path: "/"
