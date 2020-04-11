@@ -50,6 +50,10 @@
       timeout: 120
     with_items: "{{ gce.instance_data }}"
 
+  - name: wait for a couple of minutes
+    pause:
+      minutes: 1
+    
 - name: Configure Hosts
   hosts: gce_instaces_java
 #  become: yes
