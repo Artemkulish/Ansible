@@ -9,7 +9,7 @@
   tasks:
   - name: create a router
     command: gcloud compute routers create "{{ router_name }}"\
-                --network default \
+                --network projects/first-one-257817/global/networks/default \
                 --region "{{ zone_network }}"
   - name: create CloudNAT
     command: gcloud compute routers nats create "{{ nat_name }}" \
