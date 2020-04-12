@@ -3,7 +3,7 @@
 service_account_email: demo3-739@first-one-257817.iam.gserviceaccount.com
 credentials_file: /home/first-one-257817-f28046149a65.json
 project_id: first-one-257817
-machine_type: n1-standard-1
+machine_type: n1-standard-2
 image: cos-69-10895-385-0
 zone: us-central1-a
 sql_name: test7
