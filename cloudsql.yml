@@ -26,7 +26,7 @@
     # - sqlcloud
 
     - name: boot SQL instance
-      command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier=db-custom-1-3840 --zone="us-central1-a" --network=projects/"{{ project_id }}"/global/networks/default --no-assign-ip
+      command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier=db-custom-1-3840 --zone="{{ zone }}" --network=projects/"{{ project_id }}"/global/networks/default --no-assign-ip
       register: data
 
     - name: set postgres password
