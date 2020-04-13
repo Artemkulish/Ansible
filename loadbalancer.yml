@@ -11,7 +11,7 @@
       name: loadbalancer
       external_ip: demo3
       state: present
-      region: us-central1-a
+      region: us-central1
       members: ["{{ zone }}/{{ conteiner_optimized_name }}"]
       httphealthcheck_name: hc
       httphealthcheck_port: 8080
