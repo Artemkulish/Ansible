@@ -14,7 +14,7 @@
       region: us-central1
       members: ["{{ zone }}/{{ conteiner_optimized_name }}"]
       httphealthcheck_name: hc
-      httphealthcheck_port: 80
+      httphealthcheck_port: 8080
       httphealthcheck_path: "/"
       service_account_email: "{{ service_account_email }}"
       credentials_file: "{{ credentials_file }}"
