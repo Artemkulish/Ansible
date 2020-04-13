@@ -10,4 +10,4 @@ sql_name: test9
 router_name: router
 nat_name: nat
 zone_network: us-central1
-conteiner_optimized_name: demotest
+conteiner_optimized_name: demo4
