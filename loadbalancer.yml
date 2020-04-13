@@ -20,5 +20,3 @@
       credentials_file: "{{ credentials_file }}"
       project_id: "{{ project_id }}"
       
-
-
