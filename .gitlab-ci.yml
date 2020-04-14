@@ -4,7 +4,7 @@ stages:
 .ansible_template: &ansible_template
     stage: ansible
     script:
-        - ansible-playbook $PLAYBOOK
+        - ansible-playbook /demo3/$PLAYBOOK
     when: manual
     
 conteiner-opimized:
