@@ -1,6 +1,6 @@
 stages:
     - ansible
-    - build
+    - monitoring
 
 .ansible_template: &ansible_template
     stage: ansible
@@ -16,13 +16,14 @@ conteiner-opimized:
         changes:
             - demo3/create_conteiner-opt.yml
 
-network:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: network.yml
+pingdom:
+    stage: monitoring
+    script:
+        - python ./demo3/pingdom.py
+    when: manual
     only:
         changes:
-            - demo3/network.yml
+            - demo3/create_conteiner-opt.yml
             
 cloud-sql:
     <<: *ansible_template
@@ -39,12 +40,3 @@ load-balancer:
     only:
         changes:
             - demo3/loadbalancer.yml  
-
-pingdom:
-    stage: build
-    script:
-        - python ./demo3/pingdom.py
-    when: manual
-    only:
-        changes:
-            - demo3/pingdom.py 
