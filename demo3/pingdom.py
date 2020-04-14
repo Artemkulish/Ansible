@@ -13,3 +13,6 @@ while i < 5:
     request = {	"name": port[i], "host": host, "port": port[i], "type": "tcp", "resolution": "1", "sendnotificationwhendown": "1", "teamids": team_id } 
     response = requests.post(url, data=request, headers=hed)
     i += 1
+
+    
+    
