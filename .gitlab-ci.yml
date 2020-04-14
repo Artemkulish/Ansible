@@ -5,7 +5,7 @@ stages:
 .ansible_template: &ansible_template
     stage: ansible
     script:
-        - ansible-playbook demo3/$PLAYBOOK
+        - ansible-playbook demo3/$PLAYBOOK --vault-password-file /home/pass/db_pass
     when: manual
     
 conteiner-opimized:
