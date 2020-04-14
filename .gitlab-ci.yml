@@ -40,9 +40,9 @@ load-balancer:
             - demo3/loadbalancer.yml  
 
 pingdom:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: pingdom.yml
+    stage: ansible
+    script:
+        - python /demo3/pingdom.py
     only:
         changes:
-            - demo3/pingdom.yml  
+            - demo3/pingdom.py 
