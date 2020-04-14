@@ -38,3 +38,11 @@ load-balancer:
     only:
         changes:
             - demo3/loadbalancer.yml  
+
+pingdom:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: pingdom.yml
+    only:
+        changes:
+            - demo3/pingdom.yml  
