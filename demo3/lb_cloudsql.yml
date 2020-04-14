@@ -28,7 +28,7 @@
       tags:
       - sqlcloud  
 
-    - name: enable Cloud SQL APIs
+    - name: Enable Cloud SQL APIs
       command: gcloud services enable sqladmin.googleapis.com
       tags:
       - sqlcloud
@@ -39,16 +39,26 @@
     #  tags:
     # - sqlcloud
 
-    - name: boot SQL instance
+    - name: Boot SQL instance
       command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier=db-custom-1-3840 --zone="{{ zone }}" --network=projects/"{{ project_id }}"/global/networks/default --no-assign-ip
       register: data
+      
+    - name: Write private ip 
+      become: yes
+      local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' >> ./file.txt
 
-    - name: set postgres password
-      command: gcloud sql users set-password postgres  --instance "{{ sql_name }}" --password "123456"
-      tags:
-      - sqlcloud
-
-    - name: create a database
+    - name: Set postgres password
+      command: gcloud sql users set-password postgres  --instance "{{ sql_name }}" --password "{{ pass }}"
+      
+    - name: Write db password and user
+      become: yes
+      local_action: shell echo '{{ pass }}\n{{ db_user }}' >> ./file.txt
+      
+    - name: Run env processing script
+      become: yes
+      script: ./process.sh
+      
+    - name: Create a database
       gcp_sql_database:
        name: "{{ item }}"
        charset: utf8
