@@ -7,37 +7,13 @@ stages:
         - ansible-playbook $PLAYBOOK
     when: manual
     
-database_instance:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: p2.yml
-    only:
-        changes:
-            - p2.yml  
-
-webserver_instance:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: work_script.yml
-    only:
-        changes:
-            - work_script.yml
-            
-docker_installation:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: docker_install.yml
-    only:
-        changes:
-            - docker_install.yml
-            
 conteiner-opimized:
     <<: *ansible_template
     variables:
         PLAYBOOK: create_conteiner-opt.yml
     only:
         changes:
-            - create_conteiner-opt.yml
+            - demo3/create_conteiner-opt.yml
 
 network:
     <<: *ansible_template
@@ -45,7 +21,7 @@ network:
         PLAYBOOK: network.yml
     only:
         changes:
-            - network.yml
+            - demo3/network.yml
             
 cloud-sql:
     <<: *ansible_template
@@ -53,7 +29,7 @@ cloud-sql:
         PLAYBOOK: cloudsql.yml
     only:
         changes:
-            - cloudsql.yml          
+            - demo3/cloudsql.yml          
 
 load-balancer:
     <<: *ansible_template
@@ -61,4 +37,4 @@ load-balancer:
         PLAYBOOK: loadbalancer.yml
     only:
         changes:
-            - loadbalancer.yml  
+            - demo3/loadbalancer.yml  
