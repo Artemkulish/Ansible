@@ -6,4 +6,3 @@
   tasks:
    - name: test
      shell: python request.py
-
