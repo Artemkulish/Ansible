@@ -1,6 +1,6 @@
 import requests
 
-token = "$PINGDOM_TOKEN"
+token = "tQJmhSJE4YStqIK9-azyNXVbA2UOYqEeh-MZ3mrINmnN2UF-IL37hMABd9xaz2FdLKuBLUQ"
 hed = {'Authorization': 'Bearer ' + token}
 url = "https://api.pingdom.com/api/3.1/checks"
 host = "34.69.1.126"
