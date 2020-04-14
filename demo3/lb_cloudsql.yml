@@ -48,7 +48,7 @@
       local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' >> ./file.txt
 
     - name: Set postgres password
-      command: gcloud sql users set-password postgres  --instance "{{ sql_name }}" --password "{{ pass }}"
+      command: gcloud sql users set-password "{{ db_user }}" --instance "{{ sql_name }}" --password "{{ pass }}"
       
     - name: Write db password and user
       become: yes
