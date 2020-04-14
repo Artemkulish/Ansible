@@ -1,8 +1,0 @@
----
-- name: Set up Pingdom
-  hosts: localhost
-  gather_facts: no
-
-  tasks:
-   - name: test
-     shell: python request.py
