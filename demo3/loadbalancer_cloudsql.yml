@@ -22,16 +22,16 @@
       project_id: "{{ project_id }}"
 
 
-    - name: Configure Google Cloud SDK
-      command: gcloud beta auth activate-service-account --key-file="{{ credentials_file }}"
-      become: yes
-      tags:
-      - sqlcloud  
+   - name: Configure Google Cloud SDK
+     command: gcloud beta auth activate-service-account --key-file="{{ credentials_file }}"
+     become: yes
+     tags:
+     - sqlcloud  
 
-    - name: Enable Cloud SQL APIs
-      command: gcloud services enable sqladmin.googleapis.com
-      tags:
-      - sqlcloud
+   - name: Enable Cloud SQL APIs
+     command: gcloud services enable sqladmin.googleapis.com
+     tags:
+     - sqlcloud
 
     #- name: wait for a couple of minutes
     # pause:
@@ -39,37 +39,37 @@
     #  tags:
     # - sqlcloud
 
-    - name: Boot SQL instance
-      command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier=db-custom-1-3840 --zone="{{ zone }}" --network=projects/"{{ project_id }}"/global/networks/default --no-assign-ip
-      register: data
-      
-    - name: Write private ip 
-      become: yes
-      local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' >> ./file.txt
+   - name: Boot SQL instance
+     command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier=db-custom-1-3840 --zone="{{ zone }}" --network=projects/"{{ project_id }}"/global/networks/default --no-assign-ip
+     register: data
+    
+   - name: Write private ip 
+     become: yes
+     local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' >> ./file.txt
 
-    - name: Set postgres password
-      command: gcloud sql users set-password "{{ db_user }}" --instance "{{ sql_name }}" --password "{{ pass }}"
+   - name: Set postgres password
+     command: gcloud sql users set-password "{{ db_user }}" --instance "{{ sql_name }}" --password "{{ pass }}"
       
-    - name: Write db password and user
-      become: yes
-      local_action: shell echo '{{ pass }}\n{{ db_user }}' >> ./file.txt
+   - name: Write db password and user
+     become: yes
+     local_action: shell echo '{{ pass }}\n{{ db_user }}' >> ./file.txt
       
-    - name: Run env processing script
-      become: yes
-      script: ./process.sh
+   - name: Run env processing script
+     become: yes
+     script: ./process.sh
       
-    - name: Create a database
-      gcp_sql_database:
-       name: "{{ item }}"
-       charset: utf8
-       instance: "{{ sql_name }}"
-       project: "{{ project_id }}"
-       auth_kind: serviceaccount
-       service_account_file: "{{ credentials_file }}"
-       state: present
-      with_items:
-       - identity
-       - messaging
-       - payment
-       - trip
-       - vehicle
+   - name: Create a database
+     gcp_sql_database:
+      name: "{{ item }}"
+      charset: utf8
+      instance: "{{ sql_name }}"
+      project: "{{ project_id }}"
+      auth_kind: serviceaccount
+      service_account_file: "{{ credentials_file }}"
+      state: present
+     with_items:
+      - identity
+      - messaging
+      - payment
+      - trip
+      - vehicle
