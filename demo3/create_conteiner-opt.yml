@@ -56,7 +56,7 @@
       
   - name: get ip
     shell:
-      cmd: "echo {{ item.private_ip }} >> ~/instance_ip"
+      cmd: "echo {{ item.private_ip }} > ~/instance_ip"
     with_items: "{{ gce.instance_data }}"    
 
 - name: Configure Hosts
