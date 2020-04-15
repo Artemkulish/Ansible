@@ -20,7 +20,7 @@ pingdom:
     stage: monitoring
     script:
         - python ./demo3/pingdom.py
-    when: manual
+    when: on_success
     only:
         changes:
             - demo3/create_conteiner-opt.yml
