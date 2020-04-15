@@ -14,6 +14,3 @@ user=$( cat /home/env/$i | grep 'DATABASE_USERNAME\|SQL_USERNAME' |  awk -F"=" '
 
 sed -i  "s/${ip}/${var1}/g; s/${pass}/${var2}/; s/${user}/${var3}/" /home/env/$i
 done
-
-rm file.txt
-
