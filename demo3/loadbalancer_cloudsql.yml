@@ -45,7 +45,7 @@
     
    - name: Write private ip 
      become: yes
-     local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' >> /home/pass/env.txt
+     local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' > /home/pass/env.txt
 
    - name: Set postgres password
      command: gcloud sql users set-password "{{ db_user }}" --instance "{{ sql_name }}" --password "{{ pass }}"
