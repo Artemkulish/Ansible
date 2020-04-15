@@ -56,7 +56,7 @@
       
    - name: Run env processing script
      become: yes
-     script: ./process.sh
+     script: ./cloudsql_var.sh
       
    - name: Create a database
      gcp_sql_database:
