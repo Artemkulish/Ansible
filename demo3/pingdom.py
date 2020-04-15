@@ -1,6 +1,6 @@
 import requests
 
-token = ""
+token = "-hidden-"
 hed = {'Authorization': 'Bearer ' + token}
 url = "https://api.pingdom.com/api/3.1/checks"
 host = "34.69.1.126"
