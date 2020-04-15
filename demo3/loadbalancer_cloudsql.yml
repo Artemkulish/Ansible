@@ -45,14 +45,14 @@
     
    - name: Write private ip 
      become: yes
-     local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' >> ~/env.txt
+     local_action: shell echo "{{ data.stdout_lines[1] }}"| awk '{print $6}' >> /home/pass/env.txt
 
    - name: Set postgres password
      command: gcloud sql users set-password "{{ db_user }}" --instance "{{ sql_name }}" --password "{{ pass }}"
       
    - name: Write db password and user
      become: yes
-     local_action: shell echo '{{ pass }}\n{{ db_user }}' >> ~/env.txt
+     local_action: shell echo '{{ pass }}\n{{ db_user }}' >> /home/pass/env.txt
       
    - name: Run env processing script
      become: yes
