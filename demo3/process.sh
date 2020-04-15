@@ -1,9 +1,9 @@
 #!/bin/bash
 
 array=$( ls /home/env/)
-var1=$( sed -n 1p file.txt)
-var2=$( sed -n 2p file.txt)
-var3=$( sed -n 3p file.txt)
+var1=$( sed -n 1p ~/env.txt)
+var2=$( sed -n 2p ~/env.txt)
+var3=$( sed -n 3p ~/env.txt)
 
 for i in ${array[@]}
 
