@@ -1,20 +1,16 @@
+---
 stages:
     - ansible
     - monitoring
 
-.ansible_template: &ansible_template
+conteiner-opimized:
     stage: ansible
     script:
-        - ansible-playbook demo3/$PLAYBOOK --vault-password-file /home/pass/db_pass
+        - ansible-playbook demo3/create_conteiner-opt.yml
     when: manual
-    
-conteiner-opimized:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: create_conteiner-opt.yml
     only:
         changes:
-            - demo3/create_conteiner-opt.yml
+            - demo3/create_conteiner-opt.yml  
 
 pingdom:
     stage: monitoring
@@ -27,24 +23,10 @@ pingdom:
             - demo3/create_conteiner-opt.yml
 
 loadbalancer_cloudsql:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: loadbalancer_cloudsql.yml
+    stage: ansible
+    script:
+        - ansible-playbook demo3/loadbalancer_cloudsql.yml --vault-password-file /home/pass/db_pass
+    when: manual
     only:
         changes:
-            - demo3/loadbalancer_cloudsql.yml    
-cloud-sql:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: cloudsql.yml
-    only:
-        changes:
-            - demo3/cloudsql.yml          
-
-load-balancer:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: loadbalancer.yml
-    only:
-        changes:
-            - demo3/loadbalancer.yml  
+            - demo3/loadbalancer_cloudsql.yml  
