@@ -19,7 +19,7 @@ stages:
 pingdom:
     stage: monitoring
     script:
-        - cat ./demo3/pingdom.py | sed -e "s/hidden/$PINGDOM_TOKEN/" > ./demo3/pingdom_with_token.py
+        - cat ./demo3/pingdom.py | sed -e "s/-hidden-/$PINGDOM_TOKEN/" > ./demo3/pingdom_with_token.py
         - cat ./demo3/pingdom_with_token.py
         - python ./demo3/pingdom_with_token.py
     when: manual
