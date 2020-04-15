@@ -10,6 +10,6 @@ port = [ "8080", "8081", "8082", "8083", "8084" ]
 
 i = 0
 while i < 5:
-    request = {	"name": port[i], "host": host, "port": port[i], "type": "tcp", "resolution": "1", "sendnotificationwhendown": "1", "teamids": team_id } 
+    request = {	"name": port[i], "host": host, "port": port[i], "type": "tcp", "resolution": "1", "sendnotificationwhendown": "1", "teamids": team_id, "probe_filters": "region: NA" } 
     response = requests.post(url, data=request, headers=hed)
     i += 1
