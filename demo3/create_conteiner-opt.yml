@@ -53,7 +53,12 @@
   - name: wait for a couple of minutes
     pause:
       minutes: 1
-    
+      
+   - name: get ip
+     shell:
+       cmd: "echo {{ item.private_ip }} >> /home/pass/instance_ip"
+     with_items: "{{ gce.instance_data }}"    
+
 - name: Configure Hosts
   hosts: gce_instaces_java
   gather_facts: no
