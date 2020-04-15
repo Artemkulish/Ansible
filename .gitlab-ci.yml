@@ -25,7 +25,14 @@ pingdom:
     only:
         changes:
             - demo3/create_conteiner-opt.yml
-            
+
+loadbalancer_cloudsql:
+    <<: *ansible_template
+    variables:
+        PLAYBOOK: loadbalancer_cloudsql.yml
+    only:
+        changes:
+            - demo3/loadbalancer_cloudsql.yml    
 cloud-sql:
     <<: *ansible_template
     variables:
