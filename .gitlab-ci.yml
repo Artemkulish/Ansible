@@ -8,22 +8,24 @@ stages:
         - ansible-playbook demo3/$PLAYBOOK --vault-password-file /home/pass/db_pass
     when: manual
     
-conteiner-opimized:
-    <<: *ansible_template
-    variables:
-        PLAYBOOK: create_conteiner-opt.yml
-    only:
-        changes:
-            - demo3/create_conteiner-opt.yml
+#conteiner-opimized:
+#    <<: *ansible_template
+#    variables:
+#        PLAYBOOK: create_conteiner-opt.yml
+#    only:
+#        changes:
+#            - demo3/create_conteiner-opt.yml
 
 pingdom:
     stage: monitoring
     script:
-        - python ./demo3/pingdom.py
-    when: on_success
-    only:
-        changes:
-            - demo3/create_conteiner-opt.yml
+        - cat ./demo3/pingdom.py | sed -e "s/$PINGDOM_TOKEN/-hidden-/" > ./demo3/pingdom_with_token.py
+        - cat ./demo3/pingdom_with_token.py
+        - python ./demo3/pingdom_with_token.py
+    when: manual
+    #only:
+    #    changes:
+    #        - demo3/create_conteiner-opt.yml
             
 cloud-sql:
     <<: *ansible_template
