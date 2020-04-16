@@ -33,11 +33,11 @@
      tags:
      - sqlcloud
 
-    #- name: wait for a couple of minutes
-    # pause:
-    #    minutes: 2
-    #  tags:
-    # - sqlcloud
+    - name: Time for the above adjustments to be applied properly
+      pause:
+        minutes: 1
+      tags:
+     - sqlcloud
 
    - name: Boot SQL instance
      command: gcloud beta sql instances create "{{ sql_name }}" --database-version=POSTGRES_11 --tier=db-custom-1-3840 --zone="{{ zone }}" --network=projects/"{{ project_id }}"/global/networks/default --no-assign-ip
@@ -73,5 +73,3 @@
       - payment
       - trip
       - vehicle
-      
-      
