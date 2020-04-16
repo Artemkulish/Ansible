@@ -1,5 +1,5 @@
 ---
-- name: Load balancer and PostgreSQL
+- name: Create Load balancer and PostgreSQL
   hosts: localhost
   gather_facts: no
 
