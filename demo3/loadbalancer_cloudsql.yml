@@ -1,5 +1,5 @@
 ---
-- name: Create an instance
+- name: Load balancer and PostgreSQL
   hosts: localhost
   gather_facts: no
 
