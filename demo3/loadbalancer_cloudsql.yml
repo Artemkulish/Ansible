@@ -33,10 +33,10 @@
      tags:
      - sqlcloud
 
-    - name: Time for the above adjustments to be applied properly
-      pause:
-        minutes: 1
-      tags:
+   - name: Time for the above adjustments to be applied properly
+     pause:
+       minutes: 1
+     tags:
      - sqlcloud
 
    - name: Boot SQL instance
