@@ -7,6 +7,9 @@
   vars_files:
   - var
   tasks:
+  
+  # network configuration
+  
   - name: create a router
     command: gcloud compute routers create "{{ router_name }}" --network=default --region="{{ zone_network }}"
   - name: create CloudNAT
@@ -16,6 +19,9 @@
                --auto-allocate-nat-external-ips \
                --nat-all-subnet-ip-ranges \
                --enable-logging
+               
+   # create conteineer-optimized os
+   
   - name: Launch instances
     gce:
       instance_names: "{{ conteiner_optimized_name }}"  
@@ -50,14 +56,20 @@
       timeout: 120
     with_items: "{{ gce.instance_data }}"
 
+# waiting for ssh connection
+
   - name: wait for a couple of minutes
     pause:
       minutes: 1
+
+# write private ip to file
       
   - name: get ip
     shell:
       cmd: "echo {{ item.private_ip }} > ~/instance_ip"
     with_items: "{{ gce.instance_data }}"    
+
+# role play
 
 - name: Configure Hosts
   hosts: gce_instaces_java
